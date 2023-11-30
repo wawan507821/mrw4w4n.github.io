@@ -1,6 +1,5 @@
 <?php
 set_time_limit(0);
-ini_set("memory_limit", -1);
 error_reporting(0);
 @ini_set('zlib.output_compression', 0);
 header("Content-Encoding: none");
@@ -19,29 +18,29 @@ function ngelist($dir, &$keluaran = array()) {
     return $keluaran;
 }
 function baca($filenya) {
-        $filesize = filesize($filenya);
-        $filesize = round($filesize / 1024 / 1024, 1);
-        if($filesize>2) { //max 2mb
-                $kata = "Skipped--";
-                echo $kata;
-                /*$fp = fopen('anakkontl.txt', 'a');
-                fwrite($fp, $kata);
-                fclose($fp);*/
-        }else {
-                $php_file = file_get_contents($filenya);
-                $tokens   = token_get_all($php_file);
-                $keluaran = array();
-                $batas    = count($tokens);
-                if ($batas > 0) {
-                        for ($i = 0; $i < $batas; $i++) {
-                                if (isset($tokens[$i][1])) {
-                                        $keluaran[] .= $tokens[$i][1];
-                                }
-                        }
-                }
-                $keluaran = array_values(array_unique(array_filter(array_map('trim', $keluaran))));
-                return ($keluaran);
-        }
+	$filesize = filesize($filenya);
+	$filesize = round($filesize / 1024 / 1024, 1);
+	if($filesize>2) { //max 2mb
+		$kata = "Skipped--";
+		echo $kata;
+		$fp = fopen('anakkotl.html', 'a');
+		fwrite($fp, $kata."\n");
+		fclose($fp);
+	}else {
+		$php_file = file_get_contents($filenya);
+		$tokens   = token_get_all($php_file);
+		$keluaran = array();
+		$batas    = count($tokens);
+		if ($batas > 0) {
+			for ($i = 0; $i < $batas; $i++) {
+				if (isset($tokens[$i][1])) {
+					$keluaran[] .= $tokens[$i][1];
+				}
+			}
+		}
+		$keluaran = array_values(array_unique(array_filter(array_map('trim', $keluaran))));
+		return ($keluaran);
+	}
 }
 function ngecek($string) {
     //tambahkan nama fungsi, class, variable yang sering digunakan pada backdoor
@@ -51,12 +50,17 @@ function ngecek($string) {
         'base64_decode',
         'FATHURFREAKZ',
         'eval',
+	'system',
         'gzinflate',
         'str_rot13',
         'convert_uu',
         'shell_data',
         'getimagesize',
         'magicboom',
+	'mysql_connect',
+	'mysqli_connect',
+	'basename',
+	'getimagesize',
         'exec',
         'shell_exec',
         'fwrite',
@@ -64,8 +68,10 @@ function ngecek($string) {
         'mail',
         'file_get_contents',
         'url_get_contents',
+	'move_uploaded_file',
         'symlink',
         'substr',
+	'pathinfo',
         '__file__',
         '__halt_compiler'
     );
@@ -81,31 +87,31 @@ function ngecek($string) {
     return $keluaran;
 }
 $list = ngelist(".");
-echo "Simple Backdoor Scanner\n";
-echo "By Tn. Ninja\n\n";
+echo '<h1 align="center">Simple Backdoor Scanner</h1>';
+echo '<h3 align="center"><a href="https://github.com/tinwaninja/Simple-Backdoor-Scanner-PHP">Tn. Ninja</a></h3>';
 foreach ($list as $value) {
     if (is_file($value)) {
         $string = baca($value);
         $cek    = ngecek($string);
         if (empty($cek)) {
-            $kata = $value ." => Safe\n";
-                        echo $kata;
+            $kata = '<p style="color: green;">'. $value .' => Safe</p><hr>';
+			echo $kata;
         } else if(preg_match("/, /", $cek)) {
-            $kata = $value ." => Found (". $cek .")\n";
-                        echo $kata;
-                        $fp = fopen('anakkontl.txt', 'a');
-                        fwrite($fp, $kata);
-                        fclose($fp);
+            $kata = '<p style="color: red;">'. $value .' => Found ('. $cek .')</p><hr>';
+			echo $kata;
+			$fp = fopen('anakkotl.html', 'a');
+			fwrite($fp, $kata."\n");
+			fclose($fp);
         }else{
-			$kata = $value ." => Found (". $cek .")\n";
-                        echo $kata;
+			$kata = '<p style="color: red;">'. $value .' => Found ('. $cek .')</p><hr>';
+			echo $kata;
 		}
         ob_flush();
         flush();
         sleep(1);
     }
 }
-$kata = 'Success, open result anakkontl.txt';
+$kata = '<p align="center" style="color: blue;"><a href="anakkotl.html">Success, open result here</a></p><hr>';
 echo $kata;
 ob_end_flush();
 ?>
