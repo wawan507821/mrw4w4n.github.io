@@ -24,7 +24,7 @@ function baca($filenya) {
         if($filesize>2) { //max 2mb
                 $kata = "Skipped--";
                 echo $kata;
-                /*$fp = fopen('result-scanner.txt', 'a');
+                /*$fp = fopen('adaanakkontl.txt', 'a');
                 fwrite($fp, $kata);
                 fclose($fp);*/
         }else {
