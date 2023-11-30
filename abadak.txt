@@ -105,7 +105,7 @@ foreach ($list as $value) {
         sleep(1);
     }
 }
-$kata = 'Success, open result oa.txt';
+$kata = 'Success, open result anakkontl.txt';
 echo $kata;
 ob_end_flush();
 ?>
